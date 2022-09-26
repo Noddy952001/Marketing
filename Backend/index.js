@@ -2,6 +2,9 @@ const express = require("express");
 var cors = require('cors')
 const connect = require("./src/configs/db");
 
+const  AddCompneyControlller = require("./src/controllers/AddController");
+
+
 const  {register,login}=require("./src/controllers/auth.user.controller")
 
 
@@ -12,9 +15,8 @@ app.use(cors({ origin:"*"}))
 app.use(express.json());
 app.post("/register",register)
 app.post("/login" ,login)
+app.use("/add" , AddCompneyControlller)
 
-// app.use("/booking" , bookingControler)
-// app.use("/users", userController);
 
 app.set("view engine","hbs")
 app.get("/",(req,res)=>{
