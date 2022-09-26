@@ -3,16 +3,32 @@ const AddCompney = require("../models/AddCompney")
 
 const router = express.Router()
 
+//
 
-router.post("",async(req,res)=>{
-    try{
-        const addcomney = await AddCompney.create(req.body)
-        return res.json({ status: 'ok', data: addcomney } )
-        
+const {upload,
+    uploadSingle,
+    uploadMultiple}=require("../middleware/fileupload")
+
+
+
+router.post("/single", uploadSingle("profile_pic"),async(req, res)=>{
+    
+  try{
+    const addcomney=await AddCompney.create({
+      // id: req.body.id,
+      name: req.body.name,
+      price: req.body.price,
+      category:req.body.category,
+      profile_pic: req.file.path,
+    })
+      return res.send(addcomney)
     }catch(err){
-        return res.status(500).send(err.message)
+      return res.status(500).send({message:err.message})
     }
-})
+});
+
+// 
+
 
 router.get("",async(req,res)=>{
     try{
