@@ -15,7 +15,6 @@ router.post("/single", uploadSingle("profile_pic"),async(req, res)=>{
     
   try{
     const addcomney=await AddCompney.create({
-      // id: req.body.id,
       name: req.body.name,
       price: req.body.price,
       category:req.body.category,
